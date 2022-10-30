@@ -18,6 +18,10 @@ public class PlayerShip : MonoBehaviour
         fireRate = 1.0f;
     }
 
+    void OnFire(InputValue value)
+    {
+        hasFired = true;
+    }
 
     void OnMove(InputValue value)
     {
@@ -32,21 +36,18 @@ public class PlayerShip : MonoBehaviour
 
         GetComponent<Rigidbody>().AddForce(movement * speed * Time.fixedDeltaTime);
 
-        if (hasFired && Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            Instantiate(bolt, transform.Find("head").gameObject.transform.position, bolt.gameObject.transform.rotation);
-            hasFired = false;
+        if (hasFired) {
+            if(Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(bolt, gameObject.transform.position, bolt.gameObject.transform.rotation);
+                hasFired = false;
+            }
         }
-    }
-
-    void OnFire(InputValue fireValue)
-    {
-        hasFired = true;
     }
 
     private void Update()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, -1f, 5f));
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -3.3f, 3.3f), Mathf.Clamp(transform.position.y, -3.3f, 3.3f), Mathf.Clamp(transform.position.z, -3.3f, 3.3f));
     }
 }
