@@ -7,7 +7,7 @@ public class PlayerShip : MonoBehaviour
 {
     public Vector2 moveValue;
     public float speed;
-    public bool hasFired;
+    public bool hasFired = false;
     public float nextFire;
     public float fireRate;
     public GameObject bolt;
